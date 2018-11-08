@@ -1,0 +1,24 @@
+.part {
+    display: inline-block;
+    height: 75%;
+    border: none;
+    border-right: 1px solid #000;
+    box-shadow: none; 
+    padding: 0;
+    width: 25%;
+    background-color: #F6F6F6;
+    cursor: pointer;
+}
+
+.part:hover {
+    background-color: #c2c2c2;
+}
+
+.part:active,
+.part:focus {
+    outline: none;
+}
+
+.part:last-child {
+    border-right: none;
+}

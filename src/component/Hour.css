@@ -1,0 +1,25 @@
+.hour {
+    position: relative;
+    height: 45px;
+    border-left: 3px solid #000;
+    display: flex;
+    align-items: flex-end;
+    flex-grow: 1;
+}
+
+.hour:last-child {
+    border-right: 3px solid #000;
+}
+
+.hours-wrapped {
+    margin-top: 60px;
+    display: flex;
+}
+
+.hour-count {
+    position: absolute;
+    top: -20px;
+    left: -18px;
+    display: inline-block;
+    font-size: 11px;
+}
