@@ -15,6 +15,7 @@ const TaskForm = (props) => {
                     id="name"
                     label="Name"
                     type="text"
+                    onChange={(e) => handleType(e, "name")}
                     fullWidth
                     required
                 />
@@ -24,9 +25,9 @@ const TaskForm = (props) => {
                     type="time"
                     defaultValue={startTime}
                     fullWidth
-                    onChange={handleType}
+                    onChange={(e) => handleType(e, "startTime")}
                     inputProps={{
-                        step: 1800,
+                        step: 3600,
                     }}
                 />
                 <TextField
@@ -35,8 +36,9 @@ const TaskForm = (props) => {
                     type="time"
                     defaultValue="00:00"
                     fullWidth
+                    onChange={(e) => handleType(e, "endTime")}
                     inputProps={{
-                        step: 1800,
+                        step: 3600,
                     }}
                 />
                 <ColorPicker
@@ -45,12 +47,8 @@ const TaskForm = (props) => {
                     onChange={handlePick}
                 />
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Cancel
-                            </Button>
-                    <Button color="primary" type="submit">
-                        Submit
-                            </Button>
+                    <Button onClick={handleClose} color="primary">Cancel</Button>
+                    <Button color="primary" type="submit">Submit</Button>
                 </DialogActions>
             </form>
         </div>

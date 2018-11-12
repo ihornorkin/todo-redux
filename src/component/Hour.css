@@ -19,7 +19,7 @@
 .hour-count {
     position: absolute;
     top: -20px;
-    right: -12px;
+    left: -16px;
     display: inline-block;
     font-size: 11px;
 }

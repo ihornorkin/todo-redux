@@ -7,8 +7,7 @@ const Parts = (props) => {
     const buttonStyles = {
         backgroundColor: `${color}`,
         width: 100 / size + "%"
-    };    
-
+    };
     return (
         <button onClick={() => handleClick(hour) } className="part" style={buttonStyles} />
     )

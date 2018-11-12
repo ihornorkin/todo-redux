@@ -4,51 +4,51 @@ import './Timeline.css';
 import CreateTask from '../containers/CreateTask';
 import shortid from 'shortid';
 
-const data = {
+let data = {
     time: [
-      "00:00",
-      "01:00",
-      "02:00",
-      "03:00",
-      "04:00",
-      "05:00",
-      "06:00",
-      "07:00",
-      "08:00",
-      "09:00",
-      "10:00",
-      "11:00",
-      "12:00",
-      "13:00",
-      "14:00",
-      "15:00",
-      "16:00",
-      "17:00",
-      "18:00",
-      "19:00",
-      "20:00",
-      "21:00",
-      "22:00",
-      "23:00"
+        "00:00",
+        "01:00",
+        "02:00",
+        "03:00",
+        "04:00",
+        "05:00",
+        "06:00",
+        "07:00",
+        "08:00",
+        "09:00",
+        "10:00",
+        "11:00",
+        "12:00",
+        "13:00",
+        "14:00",
+        "15:00",
+        "16:00",
+        "17:00",
+        "18:00",
+        "19:00",
+        "20:00",
+        "21:00",
+        "22:00",
+        "23:00"
     ],
-    size: [0, 1],
+    size: 1,
     tasks: [
-      {
-        id: shortid.generate(),
-        name: "Sleep",
-        startTime: "0:00",
-        endTime: "7:00",
-        color: "#1999F5"
-      },
-      {
-        id: shortid.generate(),
-        name: "Work",
-        startTime: "9:00",
-        endTime: "12:00",
-        color: "#1ECC26"
-      }
+        {
+            id: shortid.generate(),
+            name: "Sleep",
+            startTime: "0:00",
+            endTime: "7:00",
+            color: "#1999F5"
+        },
+        {
+            id: shortid.generate(),
+            name: "Work",
+            startTime: "8:00",
+            endTime: "12:00",
+            color: "#1ECC26"
+        }
     ]
-  }
+}
 
 class Timeline extends Component {
 
@@ -63,8 +63,14 @@ class Timeline extends Component {
             const timeNow = +currentTime.replace(/:+/g, '.');
             const startTime = +task.startTime.replace(/:+/g, '.');
             const endTime = +task.endTime.replace(/:+/g, '.');
-            if (timeNow >= startTime && timeNow <= endTime) {
-                return color = task.color;
+            if (endTime > startTime) {
+                if (timeNow >= startTime && timeNow < endTime) {
+                    return color = task.color;
+                }
+            } else {
+                if (timeNow >= endTime && timeNow < startTime) {
+                    return color = task.color;
+                }
             }
         })
         return color;
@@ -83,9 +89,14 @@ class Timeline extends Component {
         });
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(e);
+    handleSubmit = (event, object) => {
+        event.preventDefault();
+        const id = shortid.generate();
+        data.tasks = [...data.tasks, { id, ...object }];
+        this.setState({
+            open: false
+        })
+        return data.tasks;
     }
 
     render() {
@@ -95,21 +106,25 @@ class Timeline extends Component {
         const { open, startTime } = this.state;
 
         const component = hours.map((time, index) => {
-            const color = this.taskColor(tasks, time);
             return <Hours key={index}
                 time={time}
-                color={color}
+                color={this.taskColor(tasks, time)}
                 size={size}
-                timeSelect={this.handleClickOpen} />
+                timeSelect={this.handleClickOpen}
+            />
         })
 
         return (
             <div className="container">
                 <h2>Date counter</h2>
                 <div className="hours-wrapped">
-                    { component }
+                    {component}
                 </div>
-                <CreateTask open={open} handleClose={this.handleClose}  handleSubmit={this.handleSubmit} startTime={startTime} />
+                <CreateTask open={open}
+                    handleClose={this.handleClose}
+                    handleSubmit={this.handleSubmit}
+                    startTime={startTime}
+                />
             </div>
         )
     }
